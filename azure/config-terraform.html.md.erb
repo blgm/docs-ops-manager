@@ -5,7 +5,14 @@ iaas: Azure
 install_type: terraform
 ---
 
-<%= partial "/pcf/warning-terraform" %>
+<div class="note warning"><strong>Warning:</strong>
+	<p style="display: inline">
+		The Terraform templates described in this topic are not supported and are not recommended for use.
+	</p>
+	<p>
+		Advanced users can install <%= vars.ops_manager %> with Terraform using <a href="https://github.com/pivotal/paving">paving</a> in GitHub. You may need to modify the configuration of the Terraform templates in this repository based on your unique platform needs.
+	</p>
+</div>
 
 This topic describes how to configure the BOSH Director tile within <%= vars.ops_manager %> on Azure after [Deploying <%= vars.ops_manager %> to Azure](./prepare-env-terraform.html).
 
@@ -56,7 +63,12 @@ To complete the procedures in this topic, you must have access to the output gen
    * **If you are upgrading from v2.4**: You must use **Availability Sets**.
     <p class="note"><strong>Note:</strong> You can only choose between Availability Zones and Availability Sets in a staged BOSH Director tile that has not yet deployed. After you click <strong>Apply Changes</strong> and the BOSH Director deploys successfully, you cannot switch between Availability Zones and Availability Sets.</p>
 
-1. <%= partial "../common/azure-environment" %>
+1. <%# Partial differentiates between a Terraform install and a manual install. %>
+<% if current_page.data.title == "Configuring BOSH Director on Azure Using Terraform" %>
+For **Azure Environment**, select **Azure Commercial Cloud**.
+<% else %>
+For **Azure Environment**, select the Azure cloud you want to use. <%= vars.company_name %> recommends **Azure Commercial Cloud** for most Azure environments. <p class="note"><strong>Note:</strong> If you selected Azure Stack or Azure Government Cloud as your Azure environment, you must set custom VM types. For more information, see <a href="./config-manual.html#stack-gov-prereqs">Prerequisites for Azure Stack or Azure Government Cloud</a> in <em>Configuring BOSH Director on Azure</em>.</p>
+<% end %>
 
 1. Click **Save**.
 
@@ -409,15 +421,124 @@ To create the infrastructure network, do the following:
 
 ## <a id='security'></a> Step 6: Security Page
 
-<%= partial "../common/security-pane" %>
+<%# This Security Pane partial is conditionalized between the
+"Setting Trusted Certificates" topic (trusted-certificates.html)
+and IaaS-specific Ops Manager configuration topics. %>
+<% if current_page.data.title == "Setting Trusted Certificates" %>
+1. Navigate to the BOSH Director tile from the <%= vars.ops_manager %> Installation Dashboard.
+<% end %>
+
+1. Select **Security**.
+	<% if current_page.data.title == "Setting Trusted Certificates" %>
+    <% else %>
+    <%= image_tag("../common/images/om-security.png", :alt => "At the top of the image is the header 'Security' with a horizontal line underneath. Below the line is a text area labeled 'Trusted Certificates', below which is the text 'These certificates enable BOSH-deployed components to trust a custom root certificate.' Below this text is a checkbox labeled 'Include OpsManager Root CA in Trusted Certs', underneath which is the text 'Checking this box will place the OpsManager Root CA into the trusted certificate field. The Bosh Director will then place this CA into the trust store of every VM that it deploys.' Below this text is a checkbox labeled 'Clear the Default Trusted Certificates Store', underneath which is the text 'Deletes all the certificates in the system certificate trust store every time BOSH deploys a VM. Certificates added in the Trusted Certificates field will still be trusted and you should add the certificates required to access your IAAS Provider services.' Below this text are the words 'Generate VM passwords or use single password for all VMs', below which are two options: one selected radio button labeled 'Generate passwords', and one radio button labeled 'Use default BOSH password'. At the bottom of the image is a blue, rectangular button labeled 'Save'.") %>
+    <% end %>
+
+1. In **Trusted Certificates**, enter your custom certificate authority (CA) certificates to insert into your organization's certificate trust chain. This feature enables all BOSH-deployed components in your deployment to trust custom root certificates.
+  <br><br>To enter multiple certificates, paste your certificates one after the other. For example, format your certificates like the example below:
+  <pre>-----BEGIN CERTIFICATE-----
+ABCDEFGH12345678ABCDEFGH12345678ABCDEFGH12345678AB
+EFGH12345678ABCDEFGH12345678ABCDEFGH12345678ABCDEF
+GH12345678ABCDEFGH12345678ABCDEFGH12345678...
+------END CERTIFICATE------
+-----BEGIN CERTIFICATE-----
+BCDEFGH12345678ABCDEFGH12345678ABCDEFGH12345678ABB
+EFGH12345678ABCDEFGH12345678ABCDEFGH12345678ABCDEF
+GH12345678ABCDEFGH12345678ABCDEFGH12345678...
+------END CERTIFICATE------
+-----BEGIN CERTIFICATE-----
+CDEFGH12345678ABCDEFGH12345678ABCDEFGH12345678ABBB
+EFGH12345678ABCDEFGH12345678ABCDEFGH12345678ABCDEF
+GH12345678ABCDEFGH12345678ABCDEFGH12345678...
+------END CERTIFICATE------</pre>
+  <p class="note"><strong>Note:</strong> If you want to use Docker registries to run <%= vars.app_runtime_abbr %> app instances in Docker containers, enter the certificate for your private Docker registry in this field. For more information about running app instances in <%= vars.app_runtime_abbr %> using Docker registries, see <a href="https://docs.pivotal.io/application-service/operating/docker-registry.html">Using Docker Registries</a>.</p>
+
+1. To include the <%= vars.ops_manager %> root CA in the **Trusted Certificates** field, select the **Include OpsManager Root CA in Trusted Certs** checkbox. BOSH Director includes this CA in the trust store of every VM that it deploys.
+  <p class="note warning"><strong>Warning:</strong> If you are using Ops Manager to generate certificates for either a load balancer or router, then you must select this checkbox.</p>
+
+1. To clear the default trusted certificates from all BOSH-deployed Linux VMs, select the **Clear the Default Trusted Certificates Store** checkbox. You must provide your own trusted certificates when selecting this checkbox as all TLS communication fails without trusted certificates available.
+  <p class="note"><strong>Note</strong>: This option is available in Ops Manager v2.10.21 and later.</p>
+
+<% if current_page.data.title == "Setting Trusted Certificates" %>
+1. Click **Save**.
+<% else %>
+1. Choose **Generate passwords** or **Use default BOSH password**. <%= vars.company_name %> recommends that you use the **Generate passwords** option for greater security.
+
+1. Click **Save**. To view your saved BOSH Director password, click the **Credentials** tab.
+<% end %>
 
 ## <a id="bosh-dns"></a> Step 7: BOSH DNS Config Page
 
-<%= partial '../common/bosh-dns-config'  %>
+The **BOSH DNS Config** pane allows you to configure DNS for BOSH Director by adding excluded recursors, a recursor timeout, and handlers.
+
+The fields in the **BOSH DNS Config** pane are:
+
+* **Excluded Recursors**: Exclude recursor addresses, which are URL redirects, so that they are not contacted by the BOSH DNS server. For more information about how the BOSH DNS release selects recursors, see [Recursors](https://bosh.io/docs/dns/#recursors) in _Native DNS Support in the BOSH documentation.
+
+* **Recursor Timeout**: Specify a timeout for the BOSH DNS server to contact any connected recursor addresses. The time limit includes dialing, writing, and reading from the recursor. If any of these actions exceeds the time limit, the action fails.
+
+* **Handlers**: Specify recursor addresses that apply to specific domains. For example, you can use handlers to forward all requests to a domain to a private DNS for resolution. For more information about using handlers, see [Additional Handlers](https://bosh.io/docs/dns/#additional-handlers) in _Native DNS Support in the BOSH documentation.
+
+To add excluded recursors, a recursor timeout, or handlers to the BOSH DNS release:
+
+1. Select **BOSH DNS Config**.
+	<%= image_tag("../common/images/bosh-dns-config.png", :alt => "At the top of the image is the header 'BOSH DNS Config', underneath which is a horizontal line. Below the line are two text fields labeled, from top to bottom, 'Excluded Recursors' and 'Recursor Timeout'. Below these fields is a text area labeled 'Handlers', containing the text '[]'. To the right of this text area is the help text 'Enter a JSON-formatted list of optional custom domain handlers'. At the bottom of the image is a blue, rectangular button labeled 'Save'.") %>
+
+1. (Optional) In **Excluded Recursors**, enter a list of prohibited recursor addresses.
+
+1. (Optional) In **Recursor Timeout**, enter a time limit for contacting the connected recursors.
+	<p class="note"><strong>Note:</strong> This time limit must include one of the Go parse duration time units. For example, entering <code>5s</code> sets the timeout limit to five seconds. For more information about supported time units, see <a href="https://golang.org/pkg/time/#ParseDuration">func ParseDuration</a> in the Go Programming Language documentation.</p></li>
+
+1. (Optional) In **Handlers**, enter an array of custom domain handlers in JSON format. For example:
+
+	```
+	[
+	  {
+	    "cache": {
+	      "enabled": true
+	    },
+	    "domain": "example.com",
+	    "source": {
+	      "type": "http",
+	      "url": "http://example.endpoint.local"
+	    }
+	  }
+	]
+	```
+
+1. Click **Save**.
 
 ## <a id='syslog'></a> Step 8: Syslog Page
 
-<%= partial(:"/pcf/ops-manager/syslog_bosh", :locals => { :syslog_context => 'BOSH Director' }) %>
+1. Select **Syslog**.
+
+	<% if vars.product_short == "Redis for Tanzu Application Service" || vars.product_short == "Redis for Pivotal Platform" %>
+    ![The Syslog configuration page in the Redis for PCF tile in Ops Manager.
+		See below for information about configuring this pane.](syslog-forwarding.png)
+		<a href="./images/syslog-forwarding.png" target="_blank" aria-hidden="true">
+			Click here to view a larger version of this image</a>
+	<% end %>
+
+1. (Optional) Select **Yes** to send <%= syslog_context %> system logs to a remote server.
+
+1. Enter the IP address or DNS name for the remote server in **Address**.
+
+1. Enter the port number that the remote server listens on in **Port**.
+
+1. Select **TCP** or **UDP** from the **Transport Protocol** dropdown. This selection determines which transport protocol is used to send the logs to the remote server.
+
+1. (Optional) Select the **Enable TLS** checkbox to send encrypted logs to remote server with TLS. After you select the checkbox:
+	1. Enter either the name or SHA1 fingerprint of the remote peer in **Permitted Peer**.
+	1. Enter the SSL certificate for the remote server in **SSL Certificate**.
+	<p class="note"><strong>Note:</strong> <%= vars.company_name %> strongly recommends that you enable TLS encryption when you are forwarding logs. Logs can contain sensitive information, such as cloud provider credentials.</p>
+
+1. (Optional) Enter an integer in **Queue Size**. This value specifies the number of log messages held in the buffer. The default value is 100,000.
+
+1. (Optional) Select the checkbox to **Forward Debug Logs** to an external source. This option is deselected by default. If you select it, you may generate a large amount of log data.
+
+1. (Optional) Enter configuration details for rsyslog in the **Custom rsyslog Configuration** field. This field requires the rainerscript syntax.
+
+1. Click **Save**.
 
 ## <a id='resource-config'></a> Step 9: Resource Config Page
 
@@ -438,7 +559,7 @@ To create an application gateway, follow the procedures in [Create an applicatio
 
 ## <a id="custom-vm-extensions"></a> Step 10: (Optional) Add Custom VM Extensions
 
-<%= partial "../common/vm-extension-config"  %>
+Use the <%= vars.ops_manager %> API to add custom properties to your VMs such as associated security groups and load balancers. For more information, see [Managing Custom VM Extensions](../install/custom-vm-extensions.html).
 
 ## <a id='complete'></a> Step 11: Complete the BOSH Director Installation
 
