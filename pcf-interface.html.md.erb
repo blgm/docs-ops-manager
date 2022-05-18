@@ -319,7 +319,7 @@ access events to the syslog endpoint.
 
 To configure a custom syslog endpoint for Ops Manager logs:
 
-<%= partial(:"/pcf/ops-manager/syslog_bosh", :locals => { :syslog_context => 'Ops Manager' }) %>
+<%= partial vars.path_to_partials + '/ops-manager/syslog_bosh', :locals => { :syslog_context => vars.product_short } %>
 
 ### <a id="advanced"></a> Advanced Options
 <ul>
