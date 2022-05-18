@@ -201,7 +201,7 @@ To configure the **Security** pane:
 
 ## <a id='syslog'></a> Step 9: Configure Syslog
 
-<%= partial(:"/pcf/ops-manager/syslog_bosh", :locals => { :syslog_context => 'BOSH Director' }) %>
+<%= partial vars.path_to_partials + '/ops-manager/syslog_bosh', :locals => { :syslog_context => "BOSH Director" } %>
 
 ## <a id='resource-config'></a> Step 10: Configure Resources
 
