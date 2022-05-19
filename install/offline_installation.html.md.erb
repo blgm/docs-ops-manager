@@ -15,8 +15,8 @@ into an offline environment can vary from setting up a designated proxy to burni
 
 The following image displays types of resources and the components you must move them to in your offline environment. It also includes a jumpbox. The jumpbox is a Linux host for running commands such as `bosh`, `uaac`, and `fly`. You could use the <%= vars.ops_manager %> VM for this purpose.
 
-<%= image_tag("offline-components.png", :class => "no-border") %>
-[//]:https://docs.google.com/drawings/d/1SeyhGSoohmRmgxO41WTlWS03NU6iCnz0AGVkuLl2P7A/edit?usp=sharing
+![](images/offline-components.png)
+[//]: # https://docs.google.com/drawings/d/1SeyhGSoohmRmgxO41WTlWS03NU6iCnz0AGVkuLl2P7A/edit?usp=sharing
 
 The following table provides more detail about resources and the component you must move them to:
 
@@ -63,8 +63,8 @@ It is common for organizations to deploy an artifact store such as Artifactory o
 
 This pattern includes an S3 component that is used only for backups of the installation.
 
-<%= image_tag("internet-artifact-store.png", :class => "no-border") %>
-[//]:https://docs.google.com/drawings/d/14_35uZLsBxCM6ebbj85uqWv1o2QWv00bw52H6H94HX0/edit?usp=sharing
+![](images/internet-artifact-store.png)
+[//]: # https://docs.google.com/drawings/d/14_35uZLsBxCM6ebbj85uqWv1o2QWv00bw52H6H94HX0/edit?usp=sharing
 
 The following table provides an example of how you might handle resources in this scenario:
 
@@ -104,8 +104,8 @@ The following table provides an example of how you might handle resources in thi
 
 In completely offline environments, you must bring in all resources manually and store them in the available local components.
 
-<%= image_tag("completely-offline.png", :class => "no-border") %>
-[//]:https://docs.google.com/drawings/d/1eVQcGOu6U0QFRghkAm4W5JjoWUdXs_dYIuxsMMjmfjU/edit?usp=sharing
+![](images/completely-offline.png)
+[//]: # https://docs.google.com/drawings/d/1eVQcGOu6U0QFRghkAm4W5JjoWUdXs_dYIuxsMMjmfjU/edit?usp=sharing
 
 In this architectural pattern, you must configure pipelines to watch components for changes and apply updates when available. The following table provides an example of how you might handle resources in this scenario:
 
@@ -144,8 +144,8 @@ In this architectural pattern, you must configure pipelines to watch components 
 
 This pattern allows Internet access, but only through a proxy that decrypts and rewrites  TLS certificates. In general, this resembles an online install, however it requires that you add your corporate certificate to all BOSH-deployed VMs.
 
-<%= image_tag("tls-intercepting-proxy.png", :class => "no-border") %>
-[//]:https://docs.google.com/drawings/d/1xDiLcmQdXQunFR03bhegMhQ4zHmuQzX4QHOpMyZkPac/edit?usp=sharing
+![](images/tls-intercepting-proxy.png)
+[//]: # https://docs.google.com/drawings/d/1xDiLcmQdXQunFR03bhegMhQ4zHmuQzX4QHOpMyZkPac/edit?usp=sharing
 
 Some of the challenges in this pattern include the following:
 
