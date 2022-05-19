@@ -185,7 +185,7 @@ where the operator can transfer them to storage and use them to restore the depl
 
 The following diagram shows a sample backup flow:
 
-<%= image_tag('backup-flow.png', :alt => "This image is described in the steps immediately below.") %>
+<%= image_tag('images/backup-flow.png', :alt => "This image is described in the steps immediately below.") %>
 
 In the above diagram:
 
@@ -238,7 +238,7 @@ To retrieve the Cloud Controller database encryption credentials from the <%= va
 1. Record the **Db Encryption Credentials**.
   You must provide these credentials when you contact [Support](https://support.pivotal.io) for help restoring your installation.
 
-	<%= image_tag("ccdb-encrypt-creds.png", :alt => "Cloud Controller Database Encryption Credentials
+	<%= image_tag("images/ccdb-encrypt-creds.png", :alt => "Cloud Controller Database Encryption Credentials
   UI displaying links to VM credentials, DB Encryption credentials, Encrypt Key, and Locket Client
   Certificate") %>
 
@@ -366,7 +366,7 @@ To confirm that the Backup Restore node is deployed:
 
 1. Find the **Backup Restore Node** job and check if the **Instances** dropdown is set to `1`.
 
-    <%= image_tag("backup-restore-node.png", :alt => "Backup Restore Node information UI.
+    <%= image_tag("images/backup-restore-node.png", :alt => "Backup Restore Node information UI.
     The dropdown menus have the values 'Automatic: 1', 'Automatic: 200 GB', and
     'Automatic: micro (cpu: 1, ram: 1 GB, disk: 8)'.") %>
 
@@ -454,7 +454,7 @@ To export your installation settings using the <%= vars.ops_manager %> UI:
 1. Select **Export Installation Settings**.
 
 1. Click **Export Installation Settings**.
-    <%= image_tag("settings.png", :alt => "Export Installation Settings pane. Above the blue Export Installation Settings button is the warning text 'Upgrading Ops Manager may block the upgrade
+    <%= image_tag("images/settings.png", :alt => "Export Installation Settings pane. Above the blue Export Installation Settings button is the warning text 'Upgrading Ops Manager may block the upgrade
     path for certain products. Please read Upgrading Ops Manager and verify an upgrade path exists
     for your installed products.'") %>
 
