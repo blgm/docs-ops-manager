@@ -164,8 +164,7 @@ This page shows the certificates in your Ops Manager installation.
 
 The following image shows the top section of the **Certificates** page:
 
-<%= image_tag("certificates.png", :alt => "The 'Certificates' menu page is indicated by a header that says 'Certificates' in large type at the top of the page.
-Below the header, there is one line of text that reads,
+![Certificates' menu page is indicated by a header that says 'Certificates' in large type at the top of the page. Below the header, there is one line of text that reads,
 'The following certificates will be rotated using Ops Manager API.
 To view the certificates that will not be rotated, click here.
 To get started, please visit the documentation.'
@@ -177,7 +176,7 @@ Under 'Product GUID', both example values are 'example-product-864b7cc671f9590a0
 Under 'Location', both example values are 'credhub'.
 Under 'Type', the first example is 'CA' and the second example is 'Leaf'.
 Under 'Configurable', both example values are 'No'.
-Under 'Valid until', the both example values are 'July 7, 2021' and in bold text on the next line, 'in 364 days'.") %>
+Under 'Valid until', the both example values are 'July 7, 2021' and in bold text on the next line, 'in 364 days'.](images/certificates.png)
 
 The top section of the **Certificates** page includes the certificates that the Ops Manager API attempts to rotate.
 This section includes both certificates that the Ops Manager API can rotate and certificates that you must rotate manually.
@@ -196,8 +195,7 @@ If a certificate is configurable, you can generate your own and paste it into Op
 
 The following image shows the **Excluded certificates** section of the **Certificates** page:
 
-<%= image_tag("excluded-certificates.png", :alt => "The 'Excluded certificates' section has a header that says 'Excluded certificates' in large type at the top of the section.
-Below the header, there is one line of text that reads,
+![The 'Excluded certificates' section has a header that says 'Excluded certificates' in large type at the top of the section. Below the header, there is one line of text that reads,
 'The following certificates will not be rotated using Ops Manager API.
 Please follow the guidelines in our documentation.'
 Below the text, there is a table with six columns.
@@ -208,7 +206,7 @@ Under 'Product GUID', both example values are 'example-product-864b7cc671f9590a0
 Under 'Location', both example values are 'credhub'.
 Under 'Type', both example values are 'CA'.
 Under 'Configurable', both example values are 'No'.
-Under 'Valid until', the both example values are 'July 7, 2021' and in bold text on the next line, 'in 364 days'.") %>
+Under 'Valid until', the both example values are 'July 7, 2021' and in bold text on the next line, 'in 364 days'.](images/excluded-certificates.png)
 
 The **Excluded certificates** section includes the certificates that the Ops Manager API does not attempt to rotate, because they either must be rotated using the CredHub Maestro CLI or cannot be rotated safely at all.
 
@@ -221,12 +219,7 @@ For all other certificates listed in **Excluded certificates**, see the document
 Navigate to the **Settings** page by clicking on your user name located at the upper right
 corner of the screen and selecting **Settings**.
 
-<%= image_tag("user_account_menu.png", :width => "500", :alt => "The 'User account menu'
-	      page is indicated by a drop down arrow next to the logged in user account.
-	      The user account displays at the upper right corner of the Ops Manager
-screen. As the first option of this menu, you can select 'Settings' to access the Settings
-Page. Below 'Settings' you can access 'My Account' to view account information or 'Log
-out' to log out of the existing user account.") %>
+![The 'User account menu' page is indicated by a drop down arrow next to the logged in user account. The user account displays at the upper right corner of the Ops Managerscreen. As the first option of this menu, you can select 'Settings' to access the Settings Page. Below 'Settings' you can access 'My Account' to view account information or 'Log out' to log out of the existing user account.](images/user_account_menu.png)
 
 The following section describes each configuration pane:
 
@@ -239,10 +232,7 @@ deployment.</p>
 
 You can use the **Change Decryption Passphrase** pane to reset your decryption passphrase.
 
-<%= image_tag("settings_menu.png", :width => "500", :alt => "The 'Settings' page is
-        indicated by a header that says 'Settings' in large type at the top of the
-page. Below the header, on the left-hand side, there is a tabular layout. From top to
-bottom, the tabs are 'Change Decryption Passphrase,' 'SAML Settings', 'LDAP Settings', 'SSL Certificate', 'VMware Tanzu Network Settings,' 'Proxy Settings', 'Custom Banner', 'Export Installation Settings', 'Syslog', and 'Advanced Options'. The top tab, 'Change Decryption Passphrase' is highlighted in gray to indicate that it is selected. To the right, the body shows fields that correspond to 'Change Decryption Passphrase.'") %>
+![The 'Settings' page is indicated by a header that says 'Settings' in large type at the top of the page. Below the header, on the left-hand side, there is a tabular layout. From top to bottom, the tabs are 'Change Decryption Passphrase,' 'SAML Settings', 'LDAP Settings', 'SSL Certificate', 'VMware Tanzu Network Settings,' 'Proxy Settings', 'Custom Banner', 'Export Installation Settings', 'Syslog', and 'Advanced Options'. The top tab, 'Change Decryption Passphrase' is highlighted in gray to indicate that it is selected. To the right, the body shows fields that correspond to 'Change Decryption Passphrase.'](images/settings_menu.png)
 
 ### <a id="internal_auth"></a> Internal Authentication Settings
 
@@ -287,8 +277,7 @@ This pane includes the following fields:
 
 If you leave the fields blank, Ops Manager uses an auto-generated self-signed certificate rather than your own custom certificate and private key. If you wish to replace a custom certificate with a self-signed certificate, select **Revert to self-signed certificate**.
 
-<%= image_tag("settings-ssl-cert.png", :alt => "The 'Settings' page shows the 'SSL
-      Certificate' pane highlighted on the left-hand tabular layout to indicate selection. The body shows a header titled 'SSL Certificate' with an option to 'Revert to self-signed certificate' followed by help text and two required fields: 'Certificate' and 'Private key'. The 'Add Certificate' button is at the bottom of the body.") %>
+![The 'Settings' page shows the 'SSL Certificate' pane highlighted on the left-hand tabular layout to indicate selection. The body shows a header titled 'SSL Certificate' with an option to 'Revert to self-signed certificate' followed by help text and two required fields: 'Certificate' and 'Private key'. The 'Add Certificate' button is at the bottom of the body.](images/settings-ssl-cert.png)
 
 ### <a id="vmware-tanzu"></a>VMware Tanzu Network Settings
 
@@ -336,12 +325,7 @@ To configure a custom syslog endpoint for Ops Manager logs:
 To change your email and password, navigate to the **My Account** page by clicking on your
 user name located at the upper right corner of the screen and selecting **My Account**.
 
-<%= image_tag("account_settings.png", :alt=> "This example 'Account Settings' page shows
-	      two subheadings titled 'Profile' and 'Third Party Access'. Under 'Profile'
-is an email 'admin@test.org' and an obscured password using asterisks. The email and
-  password have two corresponding links to the right: 'Change Email' and 'Change
-Password'. Under 'Third Party Access' is a paragraph that says 'You have not yet
-authorized any third party applications.'" ) %>
+![This example 'Account Settings' page shows two subheadings titled 'Profile' and 'Third Party Access'. Under 'Profile' is an email 'admin@test.org' and an obscured password using asterisks. The email and password have two corresponding links to the right: 'Change Email' and 'Change Password'. Under 'Third Party Access' is a paragraph that says 'You have not yet authorized any third party applications.'](images/account_settings.png)
 
 ## <a id='support'></a> Support Page
 
